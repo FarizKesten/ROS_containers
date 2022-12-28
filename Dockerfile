@@ -9,7 +9,10 @@ RUN apt-get update && \
     apt-get install -y wget && \
     apt-get install -y curl && \
     apt-get install -y git && \
-    apt-get install -y vim
+    apt-get install -y vim && \
+    rm -rf /var/lib/apt/lists/*
+RUN source /opt/ros/noetic/setup.bash
+
 
 # Install miniconda
 ENV CONDA_DIR /opt/conda
@@ -27,4 +30,5 @@ RUN conda init bash && \
 # Install python packages
 
 RUN source /opt/ros/noetic/setup.bash
+RUN echo "source /opt/ros/noetic/setup.bash" >> ~/.bashrc
 
