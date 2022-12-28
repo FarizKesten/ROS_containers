@@ -30,6 +30,8 @@ To test if everything works run the `roscore` and `turtlesim` nodes. You should 
 ```bash
     roscore &
     rosrun turtlesim turtlesim_node
+    # run in a new terminal to control the turtle
+    rosrun turtlesim turtle_teleop_key
 ```
 
 ![Alt text](images/turtlesim.png)
