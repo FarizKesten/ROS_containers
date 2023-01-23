@@ -1,8 +1,19 @@
 version: '3.4'
-
 services:
-  ros:
-    image: ros1_app
+  ros1:
+    # command: xhost local:root
+    image: ros1_app:latest
+    tty: true
+    container_name: my_ros1
+    environment:
+      # - DISPLAY=unix$DISPLAY
+      - DISPLAY=$DISPLAY
+      - QT_X11_NO_MITSHM=1
+      - XAUTHORITY=/tmp/.docker.xauth
+    volumes:
+      - /tmp/.X11-unix:/tmp/.X11-unix:rw
+      - /tmp/.docker.xauth:/tmp/.docker.xauth
+    privileged: true
     build:
       context: .
       dockerfile: ./Dockerfile

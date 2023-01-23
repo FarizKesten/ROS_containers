@@ -1,18 +1,21 @@
-# FROM ros:noetic
-FROM osrf/ros:noetic-desktop-full
-LABEL Name=ros1_app Version=0.0.1
+FROM osrf/ros:melodic-desktop-full
+LABEL Name=ros1_app Version=0.0.3
 
 SHELL [ "/bin/bash" , "-c" ]
-# Install base utilities
 
+# Install base utilities
 RUN apt-get update && \
     apt-get install -y wget && \
     apt-get install -y curl && \
     apt-get install -y git && \
     apt-get install -y vim && \
+    apt-get install -y tree && \
+    apt-get install -y tmux && \
     rm -rf /var/lib/apt/lists/*
-RUN source /opt/ros/noetic/setup.bash
 
+#install ros relevant packages
+# RUN apt-get update && \
+#     rm -rf /var/lib/apt/lists/*
 
 # Install miniconda
 ENV CONDA_DIR /opt/conda
@@ -28,7 +31,11 @@ RUN conda init bash && \
     conda activate base
 
 # Install python packages
+RUN pip install empy \
+                catkin_pkg \
+                rospkg
 
-RUN source /opt/ros/noetic/setup.bash
-RUN echo "source /opt/ros/noetic/setup.bash" >> ~/.bashrc
-
+# RUN source /opt/ros/noetic/setup.bash
+# RUN echo "source /opt/ros/noetic/setup.bash" >> ~/.bashrc
+RUN source /opt/ros/melodic/setup.bash
+RUN echo "source /opt/ros/melodic/setup.bash" >> ~/.bashrc
