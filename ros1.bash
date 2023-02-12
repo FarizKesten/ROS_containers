@@ -10,8 +10,8 @@ mkdir -p workspace
 #clone some configs
 mkdir -p configs
 cd configs
-rm -rf .vscode
-git clone -b ros1_melodic https://github.com/FarizKesten/vscode_configs.git .vscode
+rm -rf .vscode || true
+[ ! -d ".vscode" ] && git clone -b ros1_kinetic https://github.com/FarizKesten/vscode_configs.git .vscode
 cd ..
 
 #clone gazebo models if it doesn't exist yet
@@ -23,10 +23,10 @@ fi
 
 docker run -it\
     --tty=true \
-    --name=my_ros1 \
+    --name=my_ros1_v4 \
     --env="DISPLAY=$DISPLAY" \
     --env="QT_X11_NO_MITSHM=1" \
-    --volume="/tmp/.X11-unix:/tmp/.X11-unix:rw" \
+    --volume="/tmp/.X11-unix:/tmp/.X11-unix" \
     --volume="$DIR/workspace:/home/workspace" \
     --volume="$DIR/configs/.vscode:/home/workspace/.vscode" \
     --volume="$DIR/.gazebo/models:/root/.gazebo/models" \
@@ -34,5 +34,5 @@ docker run -it\
     --volume="$XAUTH:$XAUTH" \
     --net=host \
     --privileged \
-    ros1_app:0.0.3 \
+    ros1_app:0.0.4 \
     bash

@@ -1,11 +1,39 @@
-FROM osrf/ros:melodic-desktop-full
-LABEL Name=ros1_app Version=0.0.3
+FROM osrf/ros:kinetic-desktop-full
+LABEL Name=ros1_app Version=0.0.4
 
 SHELL [ "/bin/bash" , "-c" ]
 
-# Install base utilities
+RUN apt-get update && \
+    apt-get install -y --no-install-recommends \
+    ros-kinetic-joy \
+    ros-kinetic-teleop-twist-joy \
+    ros-kinetic-teleop-twist-keyboard \
+    ros-kinetic-laser-proc \
+    ros-kinetic-rgbd-launch \
+    ros-kinetic-depthimage-to-laserscan \
+    ros-kinetic-rosserial-arduino \
+    ros-kinetic-rosserial-python \
+    ros-kinetic-rosserial-server \
+    ros-kinetic-rosserial-client \
+    ros-kinetic-rosserial-msgs \
+    ros-kinetic-amcl \
+    ros-kinetic-map-server \
+    ros-kinetic-move-base \
+    ros-kinetic-urdf \
+    ros-kinetic-xacro \
+    ros-kinetic-compressed-image-transport \
+    ros-kinetic-rqt* \
+    ros-kinetic-interactive-markers \
+    ros-kinetic-rqt-image-view \
+    ros-kinetic-gmapping \
+    ros-kinetic-navigation && \
+    rm -rf /var/lib/apt/lists/*
+
 RUN apt-get update && \
     apt-get install -y wget && \
+    apt-get install -y bash-completion && \
+    apt-get install -y sudo && \
+    apt-get install -y apt-utils && \
     apt-get install -y curl && \
     apt-get install -y git && \
     apt-get install -y vim && \
@@ -13,29 +41,33 @@ RUN apt-get update && \
     apt-get install -y tmux && \
     rm -rf /var/lib/apt/lists/*
 
-#install ros relevant packages
-# RUN apt-get update && \
-#     rm -rf /var/lib/apt/lists/*
+# set-up tmux environment
+RUN /bin/bash -c "wget https://raw.githubusercontent.com/FarizKesten/tmux_config/main/tmux.conf -P /etc/"
+
+# Install TuertleBot3 packages
+RUN apt-get update && \
+    apt-get install -y ros-kinetic-dynamixel-sdk && \
+    apt-get install -y ros-kinetic-turtlebot3-msgs && \
+    apt-get install -y ros-kinetic-turtlebot3 && \
+    rm -rf /var/lib/apt/lists/*
 
 # Install miniconda
-ENV CONDA_DIR /opt/conda
-RUN wget --quiet https://repo.anaconda.com/miniconda/Miniconda3-latest-Linux-x86_64.sh -O ~/miniconda.sh && \
-     /bin/bash ~/miniconda.sh -b -p /opt/conda
+# ENV CONDA_DIR /opt/conda
+# RUN wget --quiet https://repo.anaconda.com/miniconda/Miniconda3-latest-Linux-x86_64.sh -O ~/miniconda.sh && \
+#      /bin/bash ~/miniconda.sh -b -p /opt/conda
 
 # Put conda in path so we can use conda activate
-ENV PATH=$CONDA_DIR/bin:$PATH
+# ENV PATH=$CONDA_DIR/bin:$PATH
 
 # Initialize conda & restart shell
-RUN conda init bash && \
-    exec bash && \
-    conda activate base
+# RUN conda init bash && \
+#     exec bash && \
+#     conda activate base
 
 # Install python packages
-RUN pip install empy \
-                catkin_pkg \
-                rospkg
+# RUN pip install empy \
+#                 catkin_pkg \
+#                 rospkg
 
-# RUN source /opt/ros/noetic/setup.bash
-# RUN echo "source /opt/ros/noetic/setup.bash" >> ~/.bashrc
-RUN source /opt/ros/melodic/setup.bash
-RUN echo "source /opt/ros/melodic/setup.bash" >> ~/.bashrc
+RUN source /opt/ros/kinetic/setup.bash
+RUN echo "source /opt/ros/kinetic/setup.bash" >> ~/.bashrc
