@@ -23,7 +23,7 @@ fi
 
 docker run -it\
     --tty=true \
-    --name=my_ros1_v4 \
+    --name=my_ros1_v5 \
     --env="DISPLAY=$DISPLAY" \
     --env="QT_X11_NO_MITSHM=1" \
     --volume="/tmp/.X11-unix:/tmp/.X11-unix" \
@@ -34,5 +34,5 @@ docker run -it\
     --volume="$XAUTH:$XAUTH" \
     --net=host \
     --privileged \
-    ros1_app:0.0.4 \
+    ros1_app:0.0.5 \
     bash

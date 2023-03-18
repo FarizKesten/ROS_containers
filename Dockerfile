@@ -49,6 +49,15 @@ RUN apt-get update && \
     apt-get install -y ros-kinetic-dynamixel-sdk && \
     apt-get install -y ros-kinetic-turtlebot3-msgs && \
     apt-get install -y ros-kinetic-turtlebot3 && \
+    apt-get install -y ros-kinetic-navigation && \
+    apt-get install -y ros-kinetic-map-server && \
+    apt-get install -y ros-kinetic-move-base && \
+    apt-get install -y ros-kinetic-amcl && \
+    rm -rf /var/lib/apt/lists/*
+
+# Install PGM map creater
+RUN apt-get update && \
+    apt-get install libignition-math2-dev protobuf-compiler && \
     rm -rf /var/lib/apt/lists/*
 
 # Install miniconda
