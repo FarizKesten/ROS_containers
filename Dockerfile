@@ -1,5 +1,5 @@
 FROM osrf/ros:kinetic-desktop-full
-LABEL Name=ros1_app Version=0.0.4
+LABEL Name=ros1_app Version=0.0.6
 
 SHELL [ "/bin/bash" , "-c" ]
 
@@ -39,6 +39,8 @@ RUN apt-get update && \
     apt-get install -y vim && \
     apt-get install -y tree && \
     apt-get install -y tmux && \
+    apt-get install -y libopencv-dev && \
+    apt-get install -y protobuf-compiler && \
     rm -rf /var/lib/apt/lists/*
 
 # set-up tmux environment

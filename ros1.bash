@@ -34,5 +34,5 @@ docker run -it\
     --volume="$XAUTH:$XAUTH" \
     --net=host \
     --privileged \
-    ros1_app:0.0.5 \
+    ros1_app:0.0.6 \
     bash
