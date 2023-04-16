@@ -26,6 +26,7 @@ RUN apt-get update && \
     ros-kinetic-interactive-markers \
     ros-kinetic-rqt-image-view \
     ros-kinetic-gmapping \
+    ros-kinetic-rtabmap-ros \
     ros-kinetic-navigation && \
     rm -rf /var/lib/apt/lists/*
 

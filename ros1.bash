@@ -23,7 +23,7 @@ fi
 
 docker run -it\
     --tty=true \
-    --name=my_ros1_v5 \
+    --name=my_ros1_kinetic \
     --env="DISPLAY=$DISPLAY" \
     --env="QT_X11_NO_MITSHM=1" \
     --volume="/tmp/.X11-unix:/tmp/.X11-unix" \
