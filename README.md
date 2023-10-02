@@ -1,6 +1,5 @@
 # Running ROS1 applications on Docker
 
-This tutorial explains how to run ROS1 applications on Docker.
 
 ## Prerequisites
 - Docker is installed on your system. If not, please follow the [Docker installation guide](https://docs.docker.com/engine/installation/).
